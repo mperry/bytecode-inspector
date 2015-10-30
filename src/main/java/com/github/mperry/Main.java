@@ -4,6 +4,7 @@ import javassist.NotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -17,7 +18,9 @@ public class Main {
 
 
     public static void main(String args[]) throws NotFoundException, IOException, ClassNotFoundException {
-        new Viewer().processJar(name);
+        Viewer v = new Viewer();
+//        v.processJar(name);
+        v.walkDir(new File("."));
     }
 
 
