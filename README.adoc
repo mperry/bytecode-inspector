@@ -1,0 +1,12 @@
+
+= Java Bytecode Inspector
+
+This project allows a quick way to inspect the class versions of either a jar file or all jar files in a directory.
+
+Set the arguments as a command line argument:
+
+`gradlew run -Pargs=<file>`
+
+where file is either a jar file or directory, or edit the build.gradle file and set the `defaultArgs` property and run:
+
+`gradlew run`
