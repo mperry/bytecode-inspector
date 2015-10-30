@@ -14,14 +14,22 @@ public class Main {
 
     static Logger log = LogManager.getLogger(Main.class);
 
-    public static String name = "D:/repositories/bytecode-inspector/build/libs/bytecode-inspector.jar";
+    public static String bytecode = "D:/repositories/bytecode-inspector/build/libs/bytecode-inspector.jar";
     public static String fj = "D:/repositories/functionaljava";
+    public static String CURRENT_PATH = ".";
+    public static String DEFAULT_PATH = CURRENT_PATH;
 
 
     public static void main(String args[]) throws NotFoundException, IOException, ClassNotFoundException {
         Viewer v = new Viewer();
 //        v.processJar(name);
-        v.walkDir(new File(fj));
+        File f = new File(args.length > 0 ? args[0] : DEFAULT_PATH);
+        if (f.isDirectory()) {
+            v.walkDir(f);
+        } else {
+            v.processJar(f);
+        }
+
     }
 
 

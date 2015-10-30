@@ -11,6 +11,17 @@ repositories {
     jcenter()
 }
 
+ext {
+    // this can be overridden with "gradlew run -Pargs=."
+    defaultArgs = "."
+    if (!project.hasProperty('args')){
+        args = defaultArgs
+    }
+}
+
+run {
+    args project.args.split('\\s')
+}
 
 dependencies {
 

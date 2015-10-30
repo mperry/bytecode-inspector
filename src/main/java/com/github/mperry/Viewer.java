@@ -5,6 +5,7 @@ import fj.P2;
 import fj.data.Java8;
 import fj.data.List;
 import fj.data.Option;
+import fj.data.Stream;
 import javassist.ClassPath;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -71,9 +72,9 @@ public class Viewer {
         ClassPool cp = ClassPool.getDefault();
         ClassPath cp2 = cp.insertClassPath(pathToJar.getAbsolutePath());
 //        jarFile.stream().forEach(je -> processEntry(je, cp));
-        List<JarEntry> list = Java8.JavaStream_List(jarFile.stream());
 
-        List<Option<P2<Integer, Option<Version>>>> list2 = list.map(je -> processEntry(je, cp));
+        Stream<JarEntry> list = Java8.JavaStream_Stream(jarFile.stream());
+        Stream<Option<P2<Integer, Option<Version>>>> list2 = list.map(je -> processEntry(je, cp));
         Option<P2<Integer, Option<Version>>> o2 = Option.join(list2.find(o -> o.isSome()));
         return o2;
 
