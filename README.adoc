@@ -10,3 +10,12 @@ Set the arguments as a command line argument:
 where file is either a jar file or directory, or edit the build.gradle file and set the `defaultArgs` property and run:
 
 `gradlew run`
+
+Typical output is:
+
+```
+version: None, file: d:\repositories\functionaljava\consume\build\libs\functionaljava-consume-4.5-SNAPSHOT-javadoc.jar
+version: None, file: d:\repositories\functionaljava\consume\build\libs\functionaljava-consume-4.5-SNAPSHOT-sources.jar
+version: Some((52,Some(JAVA_8))), file: d:\repositories\functionaljava\consume\build\libs\functionaljava-consume-4.5-SNAPSHOT.jar
+version: Some((49,Some(JAVA_5))), file: d:\repositories\functionaljava\consume\build\tmp\expandedArchives\org.jacoco.agent-0.7.1.201405082137.jar_a0mvaakmwojkgsu2oquz538ig\jacocoagent.jar
+```
