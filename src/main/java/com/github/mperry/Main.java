@@ -17,9 +17,7 @@ public class Main {
 
 
     public static void main(String args[]) throws NotFoundException, IOException, ClassNotFoundException {
-        log.info("hi world");
-//        System.out.println("hi world2");
-        new Viewer2().m3(name);
+        new Viewer().processJar(name);
     }
 
 
