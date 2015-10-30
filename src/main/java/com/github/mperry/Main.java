@@ -1,6 +1,8 @@
 package com.github.mperry;
 
 import javassist.NotFoundException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
@@ -9,13 +11,15 @@ import java.io.IOException;
  */
 public class Main {
 
+    static Logger log = LogManager.getLogger(Main.class);
 
     public static String name = "D:/repositories/bytecode-inspector/build/libs/bytecode-inspector.jar";
 
 
     public static void main(String args[]) throws NotFoundException, IOException, ClassNotFoundException {
-        System.out.println("hi world");
-        new Viewer2().m2(name);
+        log.info("hi world");
+//        System.out.println("hi world2");
+        new Viewer2().m3(name);
     }
 
 

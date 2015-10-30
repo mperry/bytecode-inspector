@@ -1,6 +1,11 @@
 package com.github.mperry;
 
-import javassist.*;
+import javassist.ClassPath;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.NotFoundException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +19,8 @@ import java.util.jar.JarFile;
  * Created by MarkPerry on 10/30/2015.
  */
 public class Viewer2 {
+
+    static Logger log = LogManager.getLogger(Viewer2.class);
 
     void m1(String pathToJar) throws IOException, ClassNotFoundException {
         m1(new File(pathToJar));
@@ -42,38 +49,39 @@ public class Viewer2 {
     }
 
     private void processEntry(JarEntry je, ClassPool cp) {
+        log.info("processing " + je.getName());
         String s = getClassName(je.getName());
-        CtClass c = null;
+
         try {
-            c = cp.get(s);
+            if (je.isDirectory() || !je.getName().endsWith(".class")){
+
+                log.info("skipping " + je.getName());
+            } else {
+                CtClass c = null;
+                c = cp.get(s);
+                int major = c.getClassFile().getMajorVersion();
+                log.info("class: " + s + " verson: " + major);
+            }
+
         } catch (NotFoundException e) {
             System.out.println(e);
         }
-        int major = c.getClassFile().getMajorVersion();
-        System.out.println("m3 class: " + s + " verson: " + major);
+
     }
 
     void m2(String pathToJar) throws IOException, ClassNotFoundException, NotFoundException {
-
         JarFile jarFile = new JarFile(pathToJar);
         Enumeration e = jarFile.entries();
-
         ClassPool cp = ClassPool.getDefault();
-//        cp.insertClassPath(new ClassClassPath(this.getClass()));
         ClassPath cp2 = cp.insertClassPath(new File(pathToJar).getAbsolutePath());
-
-//        jarFile.stream().forEach(je -> processEntry(je, cp));
-
-        URL[] urls = { new URL("jar:file:" + pathToJar+"!/") };
-//        URLClassLoader cl = URLClassLoader.newInstance(urls);
-
-
+//        URL[] urls = { new URL("jar:file:" + pathToJar+"!/") };
         while (e.hasMoreElements()) {
             JarEntry je = (JarEntry) e.nextElement();
+            log.info("processing " + je.getName());
             if(je.isDirectory() || !je.getName().endsWith(".class")){
+                log.info("skipping " + je.getName());
                 continue;
             }
-
             String className = getClassName(je.getName());
 //            className = className.replace('/', '.');
             CtClass ct = cp.get(className);
@@ -99,7 +107,11 @@ public class Viewer2 {
     }
 
     String getClassName(String s) {
-        String t = s.substring(0, s.length() - 6);
+        String t = s;
+        if (s.endsWith(".class")) {
+            t = s.substring(0, s.length() - 6);
+        }
+
         return t.replace('/', '.');
 
     }
