@@ -45,10 +45,14 @@ public class Viewer {
         }
     }
 
-    void processJar(String pathToJar) throws IOException, ClassNotFoundException, NotFoundException {
+    void processJar(String pathToJar) throws NotFoundException, IOException, ClassNotFoundException {
+        processJar(new File(pathToJar));
+    }
+
+    void processJar(File pathToJar) throws IOException, ClassNotFoundException, NotFoundException {
         JarFile jarFile = new JarFile(pathToJar);
         ClassPool cp = ClassPool.getDefault();
-        ClassPath cp2 = cp.insertClassPath(new File(pathToJar).getAbsolutePath());
+        ClassPath cp2 = cp.insertClassPath(pathToJar.getAbsolutePath());
 //        jarFile.stream().forEach(je -> processEntry(je, cp));
         List<JarEntry> list = Java8.JavaStream_List(jarFile.stream());
         list.forEach(je -> processEntry(je, cp));
