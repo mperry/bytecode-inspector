@@ -98,7 +98,7 @@ public class Viewer {
                     try {
 //                        log.info("file: {}", filePath);
                         Option<P2<Integer, Option<Version>>> o = processJar(filePath.toFile());
-                        log.info("file: {}, version: {}", filePath, o);
+                        log.info("version: {}, file: {}", o, filePath);
 
                     } catch (IOException | ClassNotFoundException | NotFoundException e) {
                         log.error(e.getMessage(), e);

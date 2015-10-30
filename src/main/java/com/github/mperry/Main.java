@@ -15,12 +15,13 @@ public class Main {
     static Logger log = LogManager.getLogger(Main.class);
 
     public static String name = "D:/repositories/bytecode-inspector/build/libs/bytecode-inspector.jar";
+    public static String fj = "D:/repositories/functionaljava";
 
 
     public static void main(String args[]) throws NotFoundException, IOException, ClassNotFoundException {
         Viewer v = new Viewer();
 //        v.processJar(name);
-        v.walkDir(new File("."));
+        v.walkDir(new File(fj));
     }
 
 
