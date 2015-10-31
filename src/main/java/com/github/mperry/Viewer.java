@@ -29,6 +29,7 @@ public class Viewer {
 
     static String classExt = ".class";
     static String jarExt = ".jar";
+    static String warExt = ".war";
 
     boolean isClassFile(String s) {
         return s.endsWith(classExt);
@@ -43,7 +44,7 @@ public class Viewer {
     }
 
     private Option<P2<Integer, Option<Version>>> processEntry(JarEntry je, ClassPool cp) {
-//        log.info("processing " + je.getName());
+        log.info("processing " + je.getName());
         String s = getClassName(je.getName());
         try {
             if (!isApplicable(je)){
