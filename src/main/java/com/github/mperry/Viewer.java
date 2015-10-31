@@ -36,7 +36,7 @@ public class Viewer {
     }
 
     boolean isJar(String s) {
-        return s.endsWith(jarExt);
+        return s.endsWith(jarExt) || s.endsWith(warExt);
     }
 
     boolean isApplicable(JarEntry je) {
@@ -44,7 +44,7 @@ public class Viewer {
     }
 
     private Option<P2<Integer, Option<Version>>> processEntry(JarEntry je, ClassPool cp) {
-        log.info("processing " + je.getName());
+//        log.info("processing " + je.getName());
         String s = getClassName(je.getName());
         try {
             if (!isApplicable(je)){
@@ -60,8 +60,8 @@ public class Viewer {
             }
         } catch (NotFoundException e) {
             log.error(e.getMessage(), e);
+            return Option.none();
         }
-        return null;
     }
 
     void processJar(String pathToJar) throws NotFoundException, IOException, ClassNotFoundException {
@@ -82,11 +82,7 @@ public class Viewer {
     }
 
     String getClassName(String s) {
-        String t = s;
-        String ext = classExt;
-        if (isClassFile(s)) {
-            t = s.substring(0, s.length() - ext.length());
-        }
+        String t = isClassFile(s) ? s.substring(0, s.length() - classExt.length()) : s;
         return t.replace('/', '.');
     }
 
