@@ -39,6 +39,11 @@ public class Viewer {
         return s.endsWith(jarExt) || s.endsWith(warExt);
     }
 
+    boolean isApplicable(File f) {
+        String s = f.getAbsolutePath();
+        return isJar(s) || isClassFile(s);
+    }
+
     boolean isApplicable(JarEntry je) {
         return !je.isDirectory() && isClassFile(je.getName());
     }
@@ -76,6 +81,7 @@ public class Viewer {
 
         Stream<JarEntry> list = Java8.JavaStream_Stream(jarFile.stream());
         Stream<Option<P2<Integer, Option<Version>>>> list2 = list.map(je -> processEntry(je, cp));
+//        log.info(list2.toStringEager());
         Option<P2<Integer, Option<Version>>> o2 = Option.join(list2.find(o -> o.isSome()));
         return o2;
 
