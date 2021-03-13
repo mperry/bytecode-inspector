@@ -1,5 +1,7 @@
 package com.github.mperry;
 
+import fj.P2;
+import fj.data.Option;
 import javassist.NotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,8 +16,8 @@ public class Main {
 
     static Logger log = LogManager.getLogger(Main.class);
 
-    public static String bytecode = "D:/repositories/bytecode-inspector/build/libs/bytecode-inspector.jar";
-    public static String fj = "D:/repositories/functionaljava";
+    public static String bytecode = "c:/repos/bytecode-inspector/build/libs/bytecode-inspector.jar";
+    public static String fj = "c:/repos/functionaljava/core/build";
     public static String CURRENT_PATH = ".";
     public static String DEFAULT_PATH = CURRENT_PATH;
 
@@ -27,7 +29,8 @@ public class Main {
         if (f.isDirectory()) {
             v.walkDir(f);
         } else {
-            v.processJar(f);
+            Option<P2<Integer, Option<Version>>> o = v.processJar(f);
+            log.info("version: {}, file: {}", o, f.toPath());
         }
 
     }
