@@ -18,7 +18,15 @@ public enum Version {
     JAVA6(ClassFile.JAVA_6, 6),
     JAVA7(ClassFile.JAVA_7, 7),
     JAVA8(ClassFile.JAVA_8, 8),
-    JAVA9(BASE_JAVA + 9, 9);
+    JAVA9(BASE_JAVA + 9, 9),
+    JAVA10(BASE_JAVA + 10, 10),
+    JAVA11(BASE_JAVA + 11, 11),
+    JAVA12(BASE_JAVA + 12, 12),
+    JAVA13(BASE_JAVA + 13, 13),
+    JAVA14(BASE_JAVA + 14, 14),
+    JAVA15(BASE_JAVA + 15, 15),
+    JAVA16(BASE_JAVA + 16, 16),
+    JAVA17(BASE_JAVA + 17, 17);
 
     private int majorVersion;
     private int javaVersion;
